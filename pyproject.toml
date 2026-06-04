@@ -1,0 +1,45 @@
+[project]
+name = "dooservice-core-workspace"
+version = "1.8.1"
+description = "dooservice core — shared SDK, models, transport and protocol packages"
+requires-python = ">=3.13"
+dependencies = []
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+dooservice-models    = { workspace = true }
+dooservice-docker    = { workspace = true }
+dooservice-dns       = { workspace = true }
+dooservice-s3        = { workspace = true }
+dooservice-db-agent  = { workspace = true }
+dooservice-protocol  = { workspace = true }
+dooservice-transport = { workspace = true }
+dooservice-sdk       = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "dooservice-models",
+    "dooservice-docker",
+    "dooservice-dns",
+    "dooservice-s3",
+    "dooservice-db-agent",
+    "dooservice-protocol",
+    "dooservice-transport",
+    "dooservice-sdk",
+    "pytest>=9",
+    "pytest-asyncio>=1.3",
+    "basedpyright>=1.39",
+    "ruff>=0.15",
+    "pre-commit>=4.0",
+]
+
+[tool.basedpyright]
+pythonVersion = "3.13"
+typeCheckingMode = "standard"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["packages/*/tests"]
+addopts = ["--import-mode=importlib"]

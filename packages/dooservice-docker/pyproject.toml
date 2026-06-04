@@ -1,0 +1,19 @@
+[project]
+name = "dooservice-docker"
+version = "0.1.0"
+description = "Docker daemon adapter (new architecture)"
+requires-python = ">=3.13"
+dependencies = [
+    "docker>=7.1.0",
+    "dooservice-models",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dooservice_docker"]
+
+[tool.uv.sources]
+dooservice-models = { workspace = true }

@@ -1,0 +1,15 @@
+[project]
+name = "dooservice-s3"
+version = "0.1.0"
+description = "S3-compatible storage client for dooservice (MinIO / AWS S3)"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.43",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dooservice_s3"]
