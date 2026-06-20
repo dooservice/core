@@ -9,7 +9,16 @@ from .handlers.backup import (
 )
 from .handlers.deployment import EnvRollback, QueryDeployments
 from .handlers.domain import DomainRemove, DomainSet, DomainVerify
-from .handlers.env import EnvClone, EnvDelete, EnvProvision, EnvRebuild, EnvStart, EnvStop, WorkersUpdate
+from .handlers.env import (
+    BackupPolicyUpdate,
+    EnvClone,
+    EnvDelete,
+    EnvProvision,
+    EnvRebuild,
+    EnvStart,
+    EnvStop,
+    WorkersUpdate,
+)
 from .handlers.git import GitPull, ProjectKeySetup, SubmoduleKeyDelete, SubmoduleKeySetup
 from .handlers.logs import EnvLogs
 from .handlers.project import ProjectCreate, ProjectDelete, QueryBackups, QueryEnvironments, QueryProjects
@@ -26,6 +35,7 @@ JOBS: dict[str, type] = {
     "env.stop":            EnvStop,
     "env.delete":          EnvDelete,
     "env.update_workers":  WorkersUpdate,
+    "env.update_backup_policy": BackupPolicyUpdate,
     "env.rebuild":         EnvRebuild,
     "env.rollback":        EnvRollback,
     "env.logs":            EnvLogs,

@@ -3,6 +3,22 @@
 All notable changes to the dooservice core packages are documented here.
 All packages are versioned together under a single `core/vX.Y.Z` tag.
 
+## [1.9.0] — 2026-06-20
+
+### `dooservice-models`
+- `EnvironmentConfig`: new field `auto_backup_enabled: bool = True` — lets the orchestrator turn off the daily automatic backup for an environment without removing manual backups
+
+### `dooservice-protocol`
+- `EnvProvisionArgs`: new field `auto_backup_enabled: bool = True`
+- New `BackupPolicyUpdateArgs` struct and `JobKind.ENV_UPDATE_BACKUP_POLICY = "env.update_backup_policy"`
+
+### `dooservice-sdk`
+- `EnvProvision`: copies `args.auto_backup_enabled` into the new environment's config
+- New `BackupPolicyUpdate` job handler — updates `EnvironmentConfig.auto_backup_enabled` for an existing environment
+- Registered `"env.update_backup_policy"` in the jobs registry
+
+---
+
 ## [1.8.1] — 2026-06-01
 
 ### `dooservice-sdk`

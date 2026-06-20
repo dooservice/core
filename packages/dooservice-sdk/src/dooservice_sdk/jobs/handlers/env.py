@@ -8,6 +8,7 @@ import msgspec
 from dooservice_db_agent import EnvironmentRepository, ProjectRepository, ProxyConfigRepository
 from dooservice_models import CONTAINER_STOP_TIMEOUT_SECONDS, Environment, EnvironmentMode, RuntimeState
 from dooservice_protocol import (
+    BackupPolicyUpdateArgs,
     EnvCloneArgs,
     EnvDeleteArgs,
     EnvProvisionArgs,
@@ -82,6 +83,7 @@ class EnvProvision:
             language=args.language,
             has_repository=args.has_repository,
         )
+        env.config.auto_backup_enabled = args.auto_backup_enabled
         try:
             env = await ProvisionSupport.run_infrastructure_steps(ctx, env, args.base_domain)
             if args.neutralize:
@@ -235,3 +237,13 @@ class WorkersUpdate:
         await ctx.sdk.environments.update_pooler_workers(env)
         await ctx.sdk.environments.update_routing(env_id)
         return {"workers": env.config.base_workers}
+
+
+class BackupPolicyUpdate:
+    async def run(self, ctx: JobContext) -> dict:
+        args   = msgspec.convert(ctx.args, BackupPolicyUpdateArgs)
+        env_id = UUID(args.environment_id)
+        env    = await EnvironmentRepository.get(env_id)
+        env.config.auto_backup_enabled = args.auto_backup_enabled
+        await EnvironmentRepository.update_config(env_id, env.config)
+        return {"auto_backup_enabled": env.config.auto_backup_enabled}

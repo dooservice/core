@@ -28,6 +28,7 @@ class JobKind(StrEnum):
     SUBMODULE_KEY_SETUP  = "submodule_key.setup"
     SUBMODULE_KEY_DELETE = "submodule_key.delete"
     ENV_UPDATE_WORKERS   = "env.update_workers"
+    ENV_UPDATE_BACKUP_POLICY = "env.update_backup_policy"
     ENV_REBUILD          = "env.rebuild"
     ENV_ROLLBACK         = "env.rollback"
     QUERY_DEPLOYMENTS    = "query.deployments"
@@ -50,6 +51,7 @@ class EnvProvisionArgs(msgspec.Struct):
     branch:         str | None       = None
     has_repository: bool             = False
     neutralize:     bool             = True
+    auto_backup_enabled: bool        = True
 
 
 class EnvStartArgs(msgspec.Struct):
@@ -172,6 +174,11 @@ class GitPullArgs(msgspec.Struct):
 class WorkersUpdateArgs(msgspec.Struct):
     environment_id: str
     workers:        int
+
+
+class BackupPolicyUpdateArgs(msgspec.Struct):
+    environment_id:      str
+    auto_backup_enabled: bool
 
 
 class EnvRebuildArgs(msgspec.Struct):

@@ -54,6 +54,8 @@ class EnvironmentConfig(msgspec.Struct):
     base_workers: int = 0
     extra_workers: int = 0
 
+    auto_backup_enabled: bool = True
+
 
 class Environment(msgspec.Struct):
     id: EnvironmentId
