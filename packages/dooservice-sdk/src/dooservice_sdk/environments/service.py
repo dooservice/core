@@ -62,6 +62,7 @@ class EnvironmentService:
         timezone: str | None = None,
         language: str | None = None,
         has_repository: bool = False,
+        base_workers: int = 1,
     ) -> Environment:
         env_id = environment_id or uuid.uuid4()
         short = env_id.hex[:8]
@@ -75,6 +76,7 @@ class EnvironmentService:
             "pg_db_password": uuid.uuid4().hex,
             "admin_email": admin_email,
             "admin_password": admin_password,
+            "base_workers": base_workers,
         }
         if timezone:
             config_kwargs["timezone"] = timezone
@@ -103,6 +105,7 @@ class EnvironmentService:
         timezone: str | None = None,
         language: str | None = None,
         has_repository: bool | None = None,
+        base_workers: int = 1,
     ) -> Environment:
         project = await ProjectRepository.get_by_name(project_name)
         return self.build_environment(
@@ -114,6 +117,7 @@ class EnvironmentService:
             timezone=timezone,
             language=language,
             has_repository=has_repository if has_repository is not None else project.has_repository,
+            base_workers=base_workers,
         )
 
     async def configure_dns(self, environment: Environment, base_domain: str = "") -> tuple[Environment, ProxyConfig]:
@@ -228,6 +232,7 @@ class EnvironmentService:
             project, mode,
             environment_id=environment_id,
             has_repository=project.has_repository,
+            base_workers=source.config.base_workers,
         )
         return target, source
 

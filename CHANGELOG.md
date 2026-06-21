@@ -3,6 +3,18 @@
 All notable changes to the dooservice core packages are documented here.
 All packages are versioned together under a single `core/vX.Y.Z` tag.
 
+## [1.10.0] — 2026-06-21
+
+### `dooservice-protocol`
+- `EnvProvisionArgs`: new field `base_workers: int = 1` — fixes new environments always provisioning with 0 Odoo workers
+
+### `dooservice-sdk`
+- `EnvironmentService.build_environment()` / `prepare_environment()`: accept `base_workers`, threaded into the new `Environment.config.base_workers` instead of always defaulting to 0
+- `EnvironmentService.prepare_clone()`: cloned environments now inherit `base_workers` from the source environment instead of starting at 0
+- `EnvProvision` job handler passes `args.base_workers` through to `prepare_environment`
+
+---
+
 ## [1.9.0] — 2026-06-20
 
 ### `dooservice-models`

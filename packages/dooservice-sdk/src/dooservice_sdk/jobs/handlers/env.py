@@ -82,6 +82,7 @@ class EnvProvision:
             timezone=args.timezone,
             language=args.language,
             has_repository=args.has_repository,
+            base_workers=args.base_workers,
         )
         env.config.auto_backup_enabled = args.auto_backup_enabled
         try:

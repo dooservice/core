@@ -52,6 +52,7 @@ class EnvProvisionArgs(msgspec.Struct):
     has_repository: bool             = False
     neutralize:     bool             = True
     auto_backup_enabled: bool        = True
+    base_workers:   int              = 1
 
 
 class EnvStartArgs(msgspec.Struct):
